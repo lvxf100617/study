@@ -1,4 +1,4 @@
-/* K & R The C programming language Ex 3-1 */
+/* K & R The C programming language Ex 3-2 */
 /* Write a function escape(s,t) that converts characters like newline and tab into visible */
 /* escape sequences like \n and \t as it copies the string t to s */
 
