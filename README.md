@@ -1,9 +1,10 @@
 # study
+d
+ChulHwan Kim (Korean). 
 
-Hi everyone! 
+1990.6.17. 
 
-I studying C language alone at Shenzhen in china.
+live in Shenzhen, Guangdong, China
 
-I will upload(write?) example of book at This space.
+interest : C, Python, Machine Learning.
 
-thank you very much.
