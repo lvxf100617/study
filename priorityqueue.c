@@ -1,104 +1,98 @@
-// This is a program to implement a priority queue using linked list.
+// Implements priority queue!!!!!
+
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 
-
-struct node{
+struct node {
     int data;
     int priority;
     struct node *next;
 };
 
-struct node *start = NULL;
-struct node *insert(struct node *);
-struct node *delete1(struct node *);
-void display(struct node *);
+struct node *insertNode(struct node *p);
+struct node *deleteNode(struct node *p);
+void display(struct node *p);
 
 int main(void)
 {
-    int option;
-    do {
-        printf("\n ***** MAIN MENU *****");
-        printf("\n 1. INSERT");
-        printf("\n 2. DELETE");
-        printf("\n 3. DISPLAY");
-        printf("\n 4. EXIT");
-        printf("\n Enter your option: ");
-        scanf(" %d", &option);
+    int oper;
+    struct node *pqueue = NULL;
 
-        switch(option){
+    do{
+
+        printf("1. Insert node\n");
+        printf("2. Delete node\n");
+        printf("3. Display all node in priority queue\n");
+        printf("4. exit\n");
+
+        printf("Enter an operation code: ");
+        scanf("%d", &oper);
+
+        switch(oper){
         case 1:
-            start = insert(start);
+            pqueue = insertNode(pqueue);
             break;
         case 2:
-            start = delete1(start);
+            pqueue = deleteNode(pqueue);
             break;
         case 3:
-            display(start);
+            display(pqueue);
             break;
-        default:
-            printf("Unknown command\n");
-            break;
+         }
 
-        }
-    }while (option != 4);
-
+     } while (oper != 4);
     return 0;
 }
 
-struct node *insert(struct node *p)
+struct node *insertNode(struct node *p)
 {
-    int val, pri;
-    struct node *ptr, *q;
-    ptr = (struct node *) malloc (sizeof (struct node));
-    printf("\n Enter the value and its priority: ");
-    scanf(" %d %d", &val, &pri);
-    ptr -> data = val;
-    ptr -> priority = pri;
+        struct node *new_node;
+        int val, pri;
 
-    if (p == NULL || pri < p -> priority){
-        ptr -> next = p;
-        p = ptr;
-    }else{
-        q = start;
-        while (q -> next != NULL && q -> next -> priority <= pri)
-                q = q -> next;
-        ptr -> next = q -> next;
-        q -> next = ptr;
-    }
+        new_node = (struct node *) malloc(sizeof(struct node));
+        if (new_node == NULL){
+            printf("no space allocate\n");
+            exit(-1);
+        }
 
-    return p;
+        printf("Enter a value and its priority: ");
+        scanf("%d %d", &val, &pri);
+
+        new_node -> data = val;
+        new_node -> priority = pri;
+
+        if (p == NULL || pri < p -> priority){
+            new_node -> next = p;
+            p = new_node;
+        }else {
+            while (p -> next != NULL &&p -> next -> priority <= pri)
+                p = p -> next;
+            new_node -> next = p -> next;
+            p -> next = new_node;
+        }
+
+        return p;
 }
 
-struct node *delete1(struct node *p)
+struct node *deleteNode(struct node *p)
 {
-    struct node *ptr;
-    if (p == NULL){
-        printf("\nUnderflow");
-        return ;
-    }else{
-        ptr = p;
-        printf("\n Deleted item is : %d", ptr -> data);
-        p = p -> next;
-        free(ptr);
-    }
+        if (p == NULL){
+            printf("Underflow\n");
+            return ;
+        } else{
+            //struct node *temp = p;
+            printf("Deleted number is %d\n", p -> data);
+            p = p -> next;
+        }
 
-    return p;
+        return p;
 }
 
 void display(struct node *p)
 {
-    struct node *ptr;
-    ptr = p;
-    if (p == NULL)
-        printf("\nQUEUE IS EMPTY");
-    else{
-        printf("\n PRIORITY QUEUE IS : ");
-        while (ptr != NULL){
-            printf("\t%d[priority=%d]", ptr -> data, ptr -> priority);
-            ptr = ptr -> next;
-        }
+    if (p != NULL){
+        printf("val[%d]  pri[%d]\n", p -> data, p -> priority);
+        display(p -> next);
     }
 }
